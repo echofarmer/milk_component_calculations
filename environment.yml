@@ -3,13 +3,18 @@
 # - Used by: `make init` and GitHub Actions setup.
 # - Adds: One-file setup for a complete and reproducible starter toolchain.
 # - Learn more: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
-name: scientific-software-template
+name: milk_component_calculations
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python>=3.11,<3.13  # Core runtime (required)
   - pip  # Core package installer (required)
+  - pandas #Data tables
+  - matplotlib #Plotting
+  - numpy #Numerical computing.
+  - openpyxl  # Read Excel files 
+  - make #Makefile on Windows 
   - pytest  # Optional: unit testing tool
   - pytest-cov  # Optional: test coverage reporting
   - black  # Optional: automatic code formatting
@@ -24,5 +29,5 @@ dependencies:
   - jupyterlab  # Optional: notebook/lab interface
   - pip:
       - detect-secrets  # Optional: secret scanning for commits/CI
-prefix: ./envs
+
 

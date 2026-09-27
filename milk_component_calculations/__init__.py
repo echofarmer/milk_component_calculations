@@ -1,25 +1,27 @@
-"""Top-level package exports for the template package.
+"""Merge dairy milk-component and milk-yield records and calculate component yields.
 
-Overview:
-- Purpose: Define what the package exposes as public API.
-- Used by: Python import system and downstream users.
-- Adds: Stable import paths and cleaner user-facing package surface.
-- Learn more: https://docs.python.org/3/tutorial/modules.html#packages
+Inputs:
+- Central Star Excel exports: fat, protein, and lactose percentages per cow
+  per milking.
+- BoviSync CSV exports: milk yield per cow per milking.
+
+Workflow:
+1. Load both sources and standardize column names and data types.
+2. Clean data: clean missing data and identify duplicated records.
+3. Combine repeated BoviSync records within a milking, then match the two
+   sources by cow, date, and milking.
+4. Calculate fat, protein, and lactose yield (kg) for each milking.
+5. Export a cleaned and merged dataset with calculated component yields.
+
+Modules:
+- ``load``: read Central Star and BoviSync files
+- ``validate``: data-quality checks and flags
+- ``merge``: combine milkings, match sources, filter by date
+- ``calculate``: component yields and unit conversion
+- ``pipeline``: run the full workflow and export results
 """
 
-from importlib.metadata import PackageNotFoundError, version
 
-from . import example as _api
-from .example import *  # noqa: F401,F403
-
-__all__ = list(_api.__all__)
-
-# Optional: expose package version from installed metadata.
-# When running directly from source, metadata may not exist yet.
-try:
-    __version__ = version("milk_component_calculations")
-except PackageNotFoundError:
-    __version__ = "0.0.0"
 
 # ---------------------------------------------------------------------------
 # Scaffold examples for future package growth

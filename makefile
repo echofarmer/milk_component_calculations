@@ -5,13 +5,13 @@
 #
 # after activating your environment.
 
-PACKAGE = mypackage
+PACKAGE = milk_component_calculations
 
 help:
 	@echo ""
 	@echo "Available commands:"
 	@echo ""
-	@echo "  make init       Create/update environment"
+	@echo "  make init       Create/update milk_component_calculations conda environment"
 	@echo "  make lint       Check code with Ruff"
 	@echo "  make format     Format code with Ruff"
 	@echo "  make test       Run tests"
@@ -22,8 +22,7 @@ help:
 	@echo ""
 
 init:
-	conda env create --prefix=./.envs -f environment.yml || \
-	conda env update --prefix=./.envs -f environment.yml --prune
+	conda env create -f environment.yml || conda env update -f environment.yml --prune
 
 lint:
 	ruff check .

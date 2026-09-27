@@ -8,14 +8,15 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mypackage"
+name = "milk_component_calculations"
 version = "0.1.0"
-description = "Starter package for research software projects"
+description = "Merge milk-component and milk-yield records and calculate fat, protein, and lactose yields"
 readme = "README.md"
 requires-python = ">=3.11"
+dependencies = ["pandas", "matplotlib", "numpy", "openpyxl"]
 
 [tool.setuptools.packages.find]
-include = ["mypackage*"]
+include = ["milk_component_calculations*"]
 
 [tool.black]
 line-length = 88
@@ -24,6 +25,7 @@ target-version = ["py311", "py312"]
 [tool.ruff]
 line-length = 88
 target-version = "py311"
+extend-exclude = ["*.ipynb"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
@@ -38,4 +40,4 @@ no_implicit_optional = true
 
 [tool.pytest.ini_options]
 addopts = "-ra"
-testpaths = ["mypackage/tests"]
+testpaths = ["milk_component_calculations/tests"]
