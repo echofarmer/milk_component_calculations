@@ -17,6 +17,6 @@ The software will:
 3. identify missing values and duplicated records.
 4. Flag values outside user-defined acceptable ranges.
 5. Calculate fat, protein, and lactose yields.
-6. Create basic tables and graphs.
+6. Create basic tables.
 7. Export a clean CSV file.
 
