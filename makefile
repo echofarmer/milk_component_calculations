@@ -12,6 +12,7 @@ help:
 	@echo "Available commands:"
 	@echo ""
 	@echo "  make init       Create/update milk_component_calculations conda environment"
+	@echo "  make run        Run the full workflow on the example data"
 	@echo "  make lint       Check code with Ruff"
 	@echo "  make format     Format code with Ruff"
 	@echo "  make test       Run tests"
@@ -23,6 +24,9 @@ help:
 
 init:
 	conda env create -f environment.yml || conda env update -f environment.yml --prune
+
+run:
+	python -m $(PACKAGE).pipeline
 
 lint:
 	ruff check .
@@ -36,8 +40,9 @@ test:
 type:
 	mypy $(PACKAGE)
 
+# Python deletes the folders so these commands also work on Windows
 docs:
-	rm -rf docs
+	python -c "import shutil; shutil.rmtree('docs', ignore_errors=True)"
 	pdoc -o docs $(PACKAGE)
 
 check: lint test
@@ -45,10 +50,10 @@ check: lint test
 check-full: lint type test
 
 clean:
-	rm -rf docs
-	rm -rf .pytest_cache
-	rm -rf .mypy_cache
-	rm -rf .ruff_cache
-	find . -type d -name __pycache__ -exec rm -rf {} +
+	python -c "import shutil; shutil.rmtree('docs', ignore_errors=True)"
+	python -c "import shutil; shutil.rmtree('outputs', ignore_errors=True)"
+	python -c "import shutil; shutil.rmtree('.pytest_cache', ignore_errors=True)"
+	python -c "import shutil; shutil.rmtree('.mypy_cache', ignore_errors=True)"
+	python -c "import shutil; shutil.rmtree('.ruff_cache', ignore_errors=True)"
 
-.PHONY: help init lint format test type docs check check-full clean
+.PHONY: help init run lint format test type docs check check-full clean

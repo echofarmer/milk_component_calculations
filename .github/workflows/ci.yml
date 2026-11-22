@@ -1,7 +1,7 @@
 # Overview:
-# - Purpose: Run the minimum required automated checks on every push/PR.
+# - Purpose: Run the lint, the tests, and the example workflow on every push/PR.
 # - Used by: GitHub Actions.
-# - Adds: Early warning when tests fail on a clean machine.
+# - Adds: Early warning when something fails on a clean machine.
 # - Learn more: https://docs.github.com/actions/quickstart
 name: CI
 
@@ -36,6 +36,8 @@ jobs:
         run: |
           make lint
           make test
+          # Run the full workflow on the example data, as a user would
+          make run
           # Optional checks for advanced students.
           # Uncomment these lines when your class is ready.
           # make type
