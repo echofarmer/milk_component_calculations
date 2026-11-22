@@ -1,3 +1,10 @@
+"""Read the two kinds of input files and return them as clean tables.
+
+- Milk components: Central Star Excel exports (.xlsx) with 4 header rows.
+- Milk yield: BoviSync CSV exports, one file per cow.
+
+The functions only read the original files. They never change them.
+"""
 
 import glob
 
@@ -14,6 +21,10 @@ def load_milk_components(folder_name="Milk_Comp"):
     files_available = sorted(glob.glob(search_pattern))
 
     print("Number of component files found: ", len(files_available))
+
+    # Stop with a clear message if the folder has no component files
+    if len(files_available) == 0:
+        raise FileNotFoundError(f"No .xlsx files found in folder: {folder_name}")
 
     clean_columns = [
         "Cow_ID",
@@ -48,6 +59,10 @@ def clean_milk_yield_files(input_folder="Milk"):
     """
     files = sorted(glob.glob(f"{input_folder}/*.csv"))
     processed_dataframes = []
+
+    # Stop with a clear message if the folder has no milk-yield files
+    if len(files) == 0:
+        raise FileNotFoundError(f"No .csv files found in folder: {input_folder}")
 
     for file in files:
         df = pd.read_csv(file)
@@ -94,7 +109,10 @@ def clean_milk_yield_files(input_folder="Milk"):
     combined_df = combined_df.rename(
         columns={"Animal": "Cow_ID", "Date": "Milking_Date", "Milking": "Milking_Time"}
     )
-    combined_df["Milking_Date"] = pd.to_datetime(combined_df["Milking_Date"]).dt.date
+    # format="mixed" reads dates written as 2026-08-12 or as 8/12/2026
+    combined_df["Milking_Date"] = pd.to_datetime(
+        combined_df["Milking_Date"], format="mixed"
+    ).dt.date
 
     return combined_df
 
