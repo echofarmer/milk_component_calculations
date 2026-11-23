@@ -201,8 +201,7 @@ makefile             project commands
 
 ## AI Assistance
 
-Claude (Anthropic) helped write the data-quality, matching, calculation, and workflow modules, their tests, and parts of this README. The author ran the tests and the example workflow to check the results.
-
+Claude (Anthropic) helped write the data-quality, matching, and calculation.
 ## License
 
 MIT. See `LICENSE`.
